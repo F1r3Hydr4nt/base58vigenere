@@ -3,11 +3,16 @@
 # Python 3 code implementing the Vigenère Cipher using the base58 alphabet 
 import argparse
 B58_DIGITS = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
+replacement_characters = {'0':'o','l':'1','I':'1','O':'o'}
+
 def get_base_58_index(character):
+	replaced_char = replacement_characters.get(character,character)
+	if(replaced_char is not character):
+	    print("Replacing '"+character+"' with '"+replaced_char+"'")
 	for i in range(len(B58_DIGITS)):
-		if(character==B58_DIGITS[i]):
+		if(replaced_char==B58_DIGITS[i]):
 			return i
-	print("No char: '"+character+"' in base58 alphabet, replacing with 'X'")
+	print("No char: '"+character+"' (or suitable) in base58 alphabet so replacing with 'X'")
 	return 30
 
 parser = argparse.ArgumentParser(prog='base58vigenere', usage='python base58vigenere.py --encrypt/--decrypt [message] [key]')
